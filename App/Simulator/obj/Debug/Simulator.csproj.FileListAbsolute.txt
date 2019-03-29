@@ -1,0 +1,17 @@
+C:\Users\borle_000\Dropbox\Scoala-Predare\PrivateFolder\PS2\tcpclientapp\Simulator\bin\Debug\Simulator.dll
+C:\Users\borle_000\Dropbox\Scoala-Predare\PrivateFolder\PS2\tcpclientapp\Simulator\bin\Debug\Simulator.pdb
+C:\Users\borle_000\Dropbox\Scoala-Predare\PrivateFolder\PS2\tcpclientapp\Simulator\obj\Debug\Simulator.csproj.CoreCompileInputs.cache
+C:\Users\borle_000\Dropbox\Scoala-Predare\PrivateFolder\PS2\tcpclientapp\Simulator\obj\Debug\Simulator.dll
+C:\Users\borle_000\Dropbox\Scoala-Predare\PrivateFolder\PS2\tcpclientapp\Simulator\obj\Debug\Simulator.pdb
+C:\Users\borle_000\Desktop\DemoApp\Simulator\bin\Debug\Simulator.dll
+C:\Users\borle_000\Desktop\DemoApp\Simulator\bin\Debug\Simulator.pdb
+C:\Users\borle_000\Desktop\DemoApp\Simulator\obj\Debug\Simulator.csprojResolveAssemblyReference.cache
+C:\Users\borle_000\Desktop\DemoApp\Simulator\obj\Debug\Simulator.csproj.CoreCompileInputs.cache
+C:\Users\borle_000\Desktop\DemoApp\Simulator\obj\Debug\Simulator.dll
+C:\Users\borle_000\Desktop\DemoApp\Simulator\obj\Debug\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\Exemplu Laborator\Simulator\bin\Debug\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\Exemplu Laborator\Simulator\bin\Debug\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\Exemplu Laborator\Simulator\obj\Debug\Simulator.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Exemplu Laborator\Simulator\obj\Debug\Simulator.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\Exemplu Laborator\Simulator\obj\Debug\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\Exemplu Laborator\Simulator\obj\Debug\Simulator.pdb
