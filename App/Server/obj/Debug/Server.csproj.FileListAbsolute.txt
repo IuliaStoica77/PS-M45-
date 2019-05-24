@@ -1,0 +1,10 @@
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\bin\Debug\Server.exe.config
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\bin\Debug\Server.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\bin\Debug\Server.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\bin\Debug\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\bin\Debug\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\obj\Debug\Server.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\obj\Debug\Server.csproj.CopyComplete
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\obj\Debug\Server.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\Server\obj\Debug\Server.pdb

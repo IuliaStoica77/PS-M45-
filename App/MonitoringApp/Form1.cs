@@ -1,5 +1,4 @@
-﻿using SimulatorImproved;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +13,19 @@ using System.Collections;
 
 namespace MonitoringApp
 {
+
+    public enum Command
+    {
+        Pump_1_On = 1,
+        Pump_2_On = 2,
+        Pump_3_On = 4,
+        ValveOff = 8,
+        PumpOneOff = 16,
+        PumpTwoOff = 32,
+        Start = 64,
+        Stop = 128
+
+    }
     public partial class Form1 : Form
     {
         private NetworkStream stream;
@@ -64,6 +76,7 @@ namespace MonitoringApp
 
                     //Accept TcpClient
                     TcpClient client = server.AcceptTcpClient();
+
                     bck.ReportProgress(0, "Connected!");
 
 
@@ -99,20 +112,20 @@ namespace MonitoringApp
             {
                 state = Int32.Parse(data);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 state = 0;
             }
+
             byte[] bytestate = BitConverter.GetBytes(state);
+
             UpdateGraphics(bytestate);
             log.addText(string.Format("Received: {0}", data) + Environment.NewLine);
         }
 
-        Graphics graphicsObj;
-
         private void UpdateGraphics(byte[] bytestate)
         {
-            //Graphics graphicsObj;
+            Graphics graphicsObj;
 
             BitArray array = new BitArray(bytestate);
             graphicsObj = this.CreateGraphics();
@@ -122,64 +135,58 @@ namespace MonitoringApp
                 switch (i)
                 {
                     case 0:
-                        if(array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(330, 295), new Point(330, 315));
+                        if (array[i] == true)
+                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(330, 270), new Point(330, 290));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(330, 295), new Point(330, 315));
+                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(330, 270), new Point(330, 290));
                         break;
                     case 1:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(400, 295), new Point(400, 315));
+                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(400, 270), new Point(400, 290));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(400, 295), new Point(400, 315));
+                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(400, 270), new Point(400, 290));
                         break;
                     case 2:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(470, 295), new Point(470, 315));
+                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(470, 270), new Point(470, 290));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(470, 295), new Point(470, 315));
+                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(470, 270), new Point(470, 290));
                         break;
                     case 3:
                         if (array[i] == true)
                         {
-                            graphicsObj.DrawLine(new Pen(System.Drawing.Color.IndianRed, 4), new Point(280, 145), new Point(320, 145));
-                            graphicsObj.DrawLine(new Pen(System.Drawing.Color.IndianRed, 4), new Point(320, 145), new Point(320, 155));
+                            graphicsObj.DrawLine(new Pen(Color.DarkRed, 4), new Point(280, 120), new Point(320, 120));
+                            graphicsObj.DrawLine(new Pen(Color.DarkRed, 4), new Point(320, 120), new Point(320, 130));
                         }
                         else
                         {
-                            graphicsObj.DrawLine(new Pen(System.Drawing.Color.Red, 4), new Point(280, 145), new Point(320, 145));
-                            graphicsObj.DrawLine(new Pen(System.Drawing.Color.Red, 4), new Point(320, 145), new Point(320, 155));
+                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(280, 120), new Point(320, 120));
+                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(320, 120), new Point(320, 130));
                         }
                         break;
                     case 4:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 270), new Point(310, 270));
+                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 245), new Point(310, 245));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 270), new Point(310, 270));
+                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 245), new Point(310, 245));
                         break;
                     case 5:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 170), new Point(310, 170));
+                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 145), new Point(310, 145));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 170), new Point(310, 170));
+                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 145), new Point(310, 145));
                         break;
                     case 6:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 120), new Point(310, 120));
+                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 95), new Point(310, 95));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 120), new Point(310, 120));
+                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 95), new Point(310, 95));
                         break;
-                    //case 7:
-                    //    if (array[i] == true)
-                    //        graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(330, 295), new Point(330, 315));
-                    //    else
-                    //        graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(330, 295), new Point(330, 315));
-                    //    break;
                 }
             }
         }
 
-        private void SendMessage(int Message)
+        private void SendCommand(byte command, byte fillingSpeed)
         {
             //change IP address to the machine where you want to send the message to
             if (client == null)
@@ -189,7 +196,8 @@ namespace MonitoringApp
 
             NetworkStream nwStream = client.GetStream();
             byte[] bytesToSend = new byte[2];
-            bytesToSend[0] = (byte)Message;
+            bytesToSend[0] = (byte)command;
+            bytesToSend[1] = (byte)fillingSpeed;
 
             nwStream.Write(bytesToSend, 0, bytesToSend.Length);
         }
@@ -198,7 +206,7 @@ namespace MonitoringApp
         {
             try
             {
-                SendMessage((int)Command.Started);
+                SendCommand((byte)Command.Start, Convert.ToByte(textBox1.Text));
                 processStarted = true;
             }
             catch (Exception ex)
@@ -214,28 +222,10 @@ namespace MonitoringApp
                 if (processStarted == true)
                 {
                     processStarted = false;
-                    if (radioButton1.Checked == true)
-                        SendMessage((int)Command.Stopped | (int)Command.Case_1);
-                    else
-                        if (radioButton2.Checked == true)
-                        SendMessage((int)Command.Stopped | (int)Command.Case_2);
-                    else
-                            if (radioButton3.Checked == true)
-                        SendMessage((int)Command.Stopped | (int)Command.Case_3);
-                    else
-                                if (radioButton4.Checked == true)
-                        SendMessage((int)Command.Stopped | (int)Command.Case_4);
-                    else
-                    {
-                        processStarted = true;
-                        throw new Exception("Scenario not selected!");
-                    }
+                    SendCommand((byte)Command.Stop, Convert.ToByte(textBox1.Text));
                 }
                 else
-                {
-                    processStarted = true;
                     throw new Exception("The process hasn't been started!");
-                }
             }
             catch (Exception ex)
             {
@@ -249,7 +239,7 @@ namespace MonitoringApp
                 log.Show();
             else
                 if (checkBox1.CheckState == CheckState.Unchecked)
-                    log.Hide();
+                log.Hide();
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -258,24 +248,66 @@ namespace MonitoringApp
 
             graphicsObj = this.CreateGraphics();
 
-            graphicsObj.DrawRectangle(new Pen(System.Drawing.Color.Black, 2), new Rectangle(new Point(300, 100), new Size(200, 200)));
+            graphicsObj.DrawRectangle(new Pen(System.Drawing.Color.Black, 2), new Rectangle(new Point(300, 75), new Size(200, 200)));
 
             Pen linePen = new Pen(System.Drawing.Color.Blue, 4);
 
-            graphicsObj.DrawLine(linePen, new Point(290, 270), new Point(310, 270));
-            graphicsObj.DrawLine(linePen, new Point(290, 170), new Point(310, 170));
-            graphicsObj.DrawLine(linePen, new Point(290, 120), new Point(310, 120));
+            graphicsObj.DrawLine(linePen, new Point(290, 245), new Point(310, 245));
+            graphicsObj.DrawLine(linePen, new Point(290, 145), new Point(310, 145));
+            graphicsObj.DrawLine(linePen, new Point(290, 95), new Point(310, 95));
 
             linePen.Color = Color.Red;
 
-            graphicsObj.DrawLine(linePen, new Point(280, 145), new Point(320, 145));
-            graphicsObj.DrawLine(linePen, new Point(320, 145), new Point(320, 155));
+            graphicsObj.DrawLine(linePen, new Point(280, 120), new Point(320, 120));
+            graphicsObj.DrawLine(linePen, new Point(320, 120), new Point(320, 130));
 
             linePen.Color = Color.Green;
 
-            graphicsObj.DrawLine(linePen, new Point(330, 295), new Point(330, 315));
-            graphicsObj.DrawLine(linePen, new Point(400, 295), new Point(400, 315));
-            graphicsObj.DrawLine(linePen, new Point(470, 295), new Point(470, 315));
+            graphicsObj.DrawLine(linePen, new Point(330, 270), new Point(330, 290));
+            graphicsObj.DrawLine(linePen, new Point(400, 270), new Point(400, 290));
+            graphicsObj.DrawLine(linePen, new Point(470, 270), new Point(470, 290));
         }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if(CheckTextbox() == true)
+                if(CheckBoxes() < 2)
+                {
+                    if (checkBox2.Checked)
+                        SendCommand((byte)Command.PumpOneOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                    if (checkBox3.Checked)
+                        SendCommand((byte)Command.PumpTwoOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                    if (CheckBoxes() == 0)
+                        SendCommand((byte)0, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                }
+        }
+
+        private bool CheckTextbox()
+        {
+            try
+            {
+                byte value = Convert.ToByte(textBox1.Text);
+            }
+            catch(Exception MyException)
+            {
+                log.addText("Dimensiune necurespunzatoare! \n");
+                return false;
+            }
+            return true;
+        }
+
+        private int CheckBoxes()
+        {
+            int result = 0;
+
+            if (checkBox2.Checked == true)
+                result += 1;
+
+            if (checkBox3.Checked == true)
+                result += 1;
+
+            return result;
+        }
+
     }
 }

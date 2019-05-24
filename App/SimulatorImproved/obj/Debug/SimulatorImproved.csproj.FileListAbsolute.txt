@@ -1,6 +1,0 @@
-\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\SimulatorImproved\bin\Debug\SimulatorImproved.dll
-\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\SimulatorImproved\bin\Debug\SimulatorImproved.pdb
-\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\SimulatorImproved\obj\Debug\SimulatorImproved.csprojAssemblyReference.cache
-\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\SimulatorImproved\obj\Debug\SimulatorImproved.csproj.CoreCompileInputs.cache
-\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\SimulatorImproved\obj\Debug\SimulatorImproved.dll
-\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\SimulatorImproved\obj\Debug\SimulatorImproved.pdb

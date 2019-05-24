@@ -1,0 +1,13 @@
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\TestSimulator+Logica.exe.config
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\TestSimulator+Logica.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\TestSimulator+Logica.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\Server.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\Server.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\Server.exe.config
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\bin\Debug\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\obj\Debug\TestSimulator+Logica.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\obj\Debug\TestSimulator+Logica.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\obj\Debug\TestSimulator+Logica.csproj.CopyComplete
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\obj\Debug\TestSimulator+Logica.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\TestSimulator+Logica\obj\Debug\TestSimulator+Logica.pdb
