@@ -17,3 +17,15 @@ C:\Users\borle_000\Desktop\DemoApp\TCPListenerTestApp\obj\Debug\TCP_PLC.pdb
 \\Mac\Home\Documents\PS Iercan\Exemplu Laborator\TCPListenerTestApp\obj\Debug\TCP_PLC.csproj.CopyComplete
 \\Mac\Home\Documents\PS Iercan\Exemplu Laborator\TCPListenerTestApp\obj\Debug\TCP_PLC.exe
 \\Mac\Home\Documents\PS Iercan\Exemplu Laborator\TCPListenerTestApp\obj\Debug\TCP_PLC.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\bin\Debug\TCP_PLC.exe.config
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\bin\Debug\TCP_PLC.exe
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\bin\Debug\TCP_PLC.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\bin\Debug\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\bin\Debug\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\obj\Debug\TCP_PLC.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\obj\Debug\TCP_PLC.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\obj\Debug\TCP_PLC.csproj.CopyComplete
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\obj\Debug\TCP_PLC.exe
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TCPListenerTestApp\obj\Debug\TCP_PLC.pdb
+\\Mac\Home\Documents\PS Iercan\Final\TCPListenerTestApp\obj\Debug\TCP_PLC.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Final\TCPListenerTestApp\obj\Debug\TCP_PLC.csproj.CoreCompileInputs.cache

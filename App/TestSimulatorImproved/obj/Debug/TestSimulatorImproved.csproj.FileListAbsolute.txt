@@ -1,0 +1,17 @@
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\TestSimulatorImproved.exe.config
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\TestSimulatorImproved.exe
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\TestSimulatorImproved.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\SimulatorImproved.dll
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\SimulatorImproved.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.csproj.CopyComplete
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.exe
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\TCP_PLC.exe
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\TCP_PLC.pdb
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\TCP_PLC.exe.config
+\\Mac\Home\Documents\PS Iercan\GitHub\PS-M45-\App\TestSimulatorImproved\bin\Debug\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\Final\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Final\TestSimulatorImproved\obj\Debug\TestSimulatorImproved.csproj.CoreCompileInputs.cache

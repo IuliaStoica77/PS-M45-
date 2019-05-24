@@ -11,13 +11,6 @@ namespace TCP_PLC
 {
 	public class Listener
 	{	
-        Simulator.Simulator _process;
-
-        public Listener(Simulator.Simulator Process)
-		{		
-            _process = Process;
-		}
-
 		public void Listen()
 		{
 			TcpListener server = null;
@@ -25,38 +18,29 @@ namespace TCP_PLC
 			{				
 				Int32 port = 2000;
 				IPAddress localAddr = IPAddress.Parse("127.0.0.1");
-								
-				server = new TcpListener(localAddr, port);
+                server = new TcpListener(localAddr, port);
+                Byte[] bytes = new Byte[2];
 
-				//Se asteapta noi requesturi.
-				server.Start();
-
-				//Buffer folosit pentru receptionarea de date
-				Byte[] bytes = new Byte[256];
-								
+                server.Start();
+		
 				while (true)
 				{                
                     Console.WriteLine("Waiting for a connection... ");
 
-					//Se creaza un TCP client nou
-					TcpClient client = server.AcceptTcpClient();               
+					TcpClient client = server.AcceptTcpClient();  
+                    
                     Console.WriteLine("Connected!");
 
-					// se obtine o noua referinta catre streamul folosit pentru comunicare
 					NetworkStream stream = client.GetStream();
 
-					int i;
+                    int i;
 
-					//se citesc datele prrimite
 					while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
 					{
-                        //se afiseaza pe UI (in aplicatia consola) datele primite
-                        _process.UpdateState(bytes[1]);
+                        //_process.UpdateState(bytes[0]);
                        
-                        Console.WriteLine(string.Format("Received: {0}, {1}", bytes[1].ToString(), bytes[6].ToString()));
+                        Console.WriteLine(string.Format("Received: {0}, {1}", bytes[0].ToString(), bytes[1].ToString()));
 					}
-
-					//la final se inchide conexiunea
 					client.Close();
 				}
 			}

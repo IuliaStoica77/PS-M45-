@@ -6,19 +6,17 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using SimulatorImproved;
 
 namespace TCP_PLC
 {
 	public class Sender
 	{		
-		BackgroundWorker _senderWorker;
-        Simulator.Simulator _process;
+        readonly Simulator process;
 
-
-        public Sender(BackgroundWorker senderWorker, Simulator.Simulator Process)
+        public Sender(Simulator Process)
 		{
-			_senderWorker = senderWorker;
-            _process = Process;
+            this.process = Process;
 		}
 
 		public void Send()
@@ -26,24 +24,22 @@ namespace TCP_PLC
 			try
 			{
 				//Se creaza un TCP client cu adresa de IP si portul 
-				TcpClient client = new TcpClient("127.0.0.1", 3000);
+				TcpClient client = new TcpClient("127.0.0.1", 30000);
 
 				while (true)
 				{
 					NetworkStream nwStream = client.GetStream();
-					byte[] bytesToSend = new byte[8];
-					bytesToSend[1] = _process.GetState()[0];					
-
-					//se apeleaza metoda report progress pentru a face update pe UI (adica in aplicatia consola).
-					_senderWorker.ReportProgress(0, string.Format("Sending bytes[1]= {0} and bytes[6] = {1}: ", bytesToSend[1].ToString(), bytesToSend[6].ToString()));
+					byte[] bytesToSend = new byte[2];
+                    bytesToSend[0] = process.Get_State();
+                    
+					Console.WriteLine(string.Format("Sending bytes[0]= {0} and bytes[1] = {1}: ", bytesToSend[0].ToString(), bytesToSend[1].ToString()));
 					nwStream.Write(bytesToSend, 0, bytesToSend.Length);
-
-					Thread.Sleep(2000);
+					Thread.Sleep(1000);
 				}
 			}
 			catch (Exception ex)
 			{
-				_senderWorker.ReportProgress(0, ex.ToString());
+                Console.WriteLine(ex.ToString());
 			}
 			
 		}
