@@ -23,9 +23,11 @@ namespace TCP_PLC
             {
                 while (true)
                 {
+                    Console.WriteLine("--------------------------");
                     Console.WriteLine(string.Format("Sending byte = {0} ", process.Get_State()));
-                    Console.WriteLine(string.Format("Water level: " + process.Level));
+                    //Console.WriteLine(string.Format("Water level: " + process.Level));
                     //Console.WriteLine(string.Format("Fill Speed: " + process.FillSpeed));
+                    Console.WriteLine("--------------------------");
                     networkStream.Write(new byte[] { process.Get_State(), 0x00 }, 0, 2);
                     Thread.Sleep(1000);
                 }

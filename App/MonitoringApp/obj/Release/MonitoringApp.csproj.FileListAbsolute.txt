@@ -1,0 +1,10 @@
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\bin\Release\MonitoringApp.exe.config
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\bin\Release\MonitoringApp.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\bin\Release\MonitoringApp.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.Form1.resources
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.Properties.Resources.resources
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.csproj.GenerateResource.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.exe
+\\Mac\Home\Documents\PS Iercan\Proiect\MonitoringApp\obj\Release\MonitoringApp.pdb

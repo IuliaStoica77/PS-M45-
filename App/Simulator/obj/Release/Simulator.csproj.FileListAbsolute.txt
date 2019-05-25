@@ -1,0 +1,6 @@
+\\Mac\Home\Documents\PS Iercan\Proiect\Simulator\bin\Release\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\Proiect\Simulator\bin\Release\Simulator.pdb
+\\Mac\Home\Documents\PS Iercan\Proiect\Simulator\obj\Release\Simulator.csprojAssemblyReference.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\Simulator\obj\Release\Simulator.csproj.CoreCompileInputs.cache
+\\Mac\Home\Documents\PS Iercan\Proiect\Simulator\obj\Release\Simulator.dll
+\\Mac\Home\Documents\PS Iercan\Proiect\Simulator\obj\Release\Simulator.pdb

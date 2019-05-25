@@ -42,18 +42,6 @@ namespace MonitoringApp
             InitializeComponent();
         }
 
-        private void StartListening()
-        {
-            log.addText("Start Listening" + Environment.NewLine);
-            bck = new BackgroundWorker
-            {
-                WorkerReportsProgress = true
-            };
-            bck.ProgressChanged += Bck_ProgressChanged;
-            bck.DoWork += Bck_DoWork;
-            bck.RunWorkerAsync();
-        }
-
         private void Bck_DoWork(object sender, DoWorkEventArgs e)
         {
             TcpListener server = null;
@@ -123,6 +111,45 @@ namespace MonitoringApp
             log.addText(string.Format("Received: {0}", data) + Environment.NewLine);
         }
 
+        private void StartListening()
+        {
+            log.addText("Start Listening" + Environment.NewLine);
+            bck = new BackgroundWorker
+            {
+                WorkerReportsProgress = true
+            };
+            bck.ProgressChanged += Bck_ProgressChanged;
+            bck.DoWork += Bck_DoWork;
+            bck.RunWorkerAsync();
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics graphicsObj;
+
+            graphicsObj = this.CreateGraphics();
+
+            graphicsObj.DrawRectangle(new Pen(Color.Black, 2), new Rectangle(new Point(300, 75), new Size(200, 200)));
+            graphicsObj.DrawRectangle(new Pen(Color.Black, 2), new Rectangle(new Point(310, 85), new Size(180, 180)));
+
+            Pen linePen = new Pen(Color.MediumSpringGreen, 4);        //pixul pentru desenat nivelele
+
+            graphicsObj.DrawLine(linePen, new Point(290, 240), new Point(310, 240));
+            graphicsObj.DrawLine(linePen, new Point(290, 145), new Point(310, 145));
+            graphicsObj.DrawLine(linePen, new Point(290, 100), new Point(310, 100));
+
+            linePen.Color = Color.SteelBlue;      //pixul pentru desenat valva
+
+            graphicsObj.DrawLine(linePen, new Point(280, 120), new Point(320, 120));
+            graphicsObj.DrawLine(linePen, new Point(320, 120), new Point(320, 130));
+
+            linePen.Color = Color.LightBlue;        //pixul pentru desenat pompa
+
+            graphicsObj.DrawLine(linePen, new Point(330, 270), new Point(330, 290));
+            graphicsObj.DrawLine(linePen, new Point(400, 270), new Point(400, 290));
+            graphicsObj.DrawLine(linePen, new Point(470, 270), new Point(470, 290));
+        }
+
         private void UpdateGraphics(byte[] bytestate)
         {
             Graphics graphicsObj;
@@ -136,51 +163,65 @@ namespace MonitoringApp
                 {
                     case 0:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(330, 270), new Point(330, 290));
+                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(330, 270), new Point(330, 290));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(330, 270), new Point(330, 290));
+                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(330, 270), new Point(330, 290));
                         break;
                     case 1:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(400, 270), new Point(400, 290));
+                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(400, 270), new Point(400, 290));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(400, 270), new Point(400, 290));
+                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(400, 270), new Point(400, 290));
                         break;
                     case 2:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightGreen, 4), new Point(470, 270), new Point(470, 290));
+                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(470, 270), new Point(470, 290));
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Green, 4), new Point(470, 270), new Point(470, 290));
+                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(470, 270), new Point(470, 290));
                         break;
                     case 3:
                         if (array[i] == true)
-                        {
-                            graphicsObj.DrawLine(new Pen(Color.DarkRed, 4), new Point(280, 120), new Point(320, 120));
-                            graphicsObj.DrawLine(new Pen(Color.DarkRed, 4), new Point(320, 120), new Point(320, 130));
-                        }
+                            graphicsObj.DrawLine(new Pen(Color.DeepSkyBlue, 4), new Point(280, 120), new Point(300, 120));
                         else
-                        {
-                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(280, 120), new Point(320, 120));
-                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(320, 120), new Point(320, 130));
-                        }
+                            graphicsObj.DrawLine(new Pen(Color.SteelBlue, 4), new Point(280, 120), new Point(300, 120));
                         break;
                     case 4:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 245), new Point(310, 245));
+                        {
+                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(290, 240), new Point(310, 240));
+                            graphicsObj.FillRectangle(new SolidBrush(Color.Blue), 312, 240, 176, 23);
+                        }
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 245), new Point(310, 245));
+                        {
+                            graphicsObj.DrawLine(new Pen(Color.MediumSpringGreen, 4), new Point(290, 240), new Point(310, 240));
+                            graphicsObj.FillRectangle(new SolidBrush(Color.FromArgb(240, 240, 240)), 312, 240, 176, 23);
+                        }
                         break;
                     case 5:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 145), new Point(310, 145));
+                        {
+                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(290, 145), new Point(310, 145));
+                            graphicsObj.FillRectangle(new SolidBrush(Color.Blue), 312, 145, 176, 100);
+                        }
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 145), new Point(310, 145));
+                        {
+                            graphicsObj.DrawLine(new Pen(Color.MediumSpringGreen, 4), new Point(290, 145), new Point(310, 145));
+                            graphicsObj.FillRectangle(new SolidBrush(Color.FromArgb(240, 240, 240)), 312, 145, 176, 100);
+                        }
                         break;
                     case 6:
                         if (array[i] == true)
-                            graphicsObj.DrawLine(new Pen(Color.LightBlue, 4), new Point(290, 95), new Point(310, 95));
+                        {
+                            graphicsObj.DrawLine(new Pen(Color.Red, 4), new Point(290, 100), new Point(310, 100));
+                            graphicsObj.FillRectangle(new SolidBrush(Color.Blue), 312, 100, 176, 45);
+                        }
                         else
-                            graphicsObj.DrawLine(new Pen(Color.Blue, 4), new Point(290, 95), new Point(310, 95));
+                        {
+                            graphicsObj.DrawLine(new Pen(Color.MediumSpringGreen, 4), new Point(290, 100), new Point(310, 100));
+                            graphicsObj.FillRectangle(new SolidBrush(Color.FromArgb(240, 240, 240)), 312, 100, 176, 45);
+                            graphicsObj.DrawLine(new Pen(Color.SteelBlue, 4), new Point(310, 120), new Point(320, 120));
+                            graphicsObj.DrawLine(new Pen(Color.SteelBlue, 4), new Point(320, 120), new Point(320, 130));
+                        }
                         break;
                 }
             }
@@ -215,80 +256,13 @@ namespace MonitoringApp
             }
         }
 
-        private void StopProcess_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (processStarted == true)
-                {
-                    processStarted = false;
-                    SendCommand((byte)Command.Stop, Convert.ToByte(textBox1.Text));
-                }
-                else
-                    throw new Exception("The process hasn't been started!");
-            }
-            catch (Exception ex)
-            {
-                log.addText(ex.ToString() + Environment.NewLine);
-            }
-        }
-
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.CheckState == CheckState.Checked)
-                log.Show();
-            else
-                if (checkBox1.CheckState == CheckState.Unchecked)
-                log.Hide();
-        }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics graphicsObj;
-
-            graphicsObj = this.CreateGraphics();
-
-            graphicsObj.DrawRectangle(new Pen(System.Drawing.Color.Black, 2), new Rectangle(new Point(300, 75), new Size(200, 200)));
-
-            Pen linePen = new Pen(System.Drawing.Color.Blue, 4);
-
-            graphicsObj.DrawLine(linePen, new Point(290, 245), new Point(310, 245));
-            graphicsObj.DrawLine(linePen, new Point(290, 145), new Point(310, 145));
-            graphicsObj.DrawLine(linePen, new Point(290, 95), new Point(310, 95));
-
-            linePen.Color = Color.Red;
-
-            graphicsObj.DrawLine(linePen, new Point(280, 120), new Point(320, 120));
-            graphicsObj.DrawLine(linePen, new Point(320, 120), new Point(320, 130));
-
-            linePen.Color = Color.Green;
-
-            graphicsObj.DrawLine(linePen, new Point(330, 270), new Point(330, 290));
-            graphicsObj.DrawLine(linePen, new Point(400, 270), new Point(400, 290));
-            graphicsObj.DrawLine(linePen, new Point(470, 270), new Point(470, 290));
-        }
-
-        private void Button1_Click(object sender, EventArgs e)
-        {
-            if(CheckTextbox() == true)
-                if(CheckBoxes() < 2)
-                {
-                    if (checkBox2.Checked)
-                        SendCommand((byte)Command.PumpOneOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
-                    if (checkBox3.Checked)
-                        SendCommand((byte)Command.PumpTwoOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
-                    if (CheckBoxes() == 0)
-                        SendCommand((byte)0, Convert.ToByte(Int32.Parse(textBox1.Text)));
-                }
-        }
-
         private bool CheckTextbox()
         {
             try
             {
                 byte value = Convert.ToByte(textBox1.Text);
             }
-            catch(Exception MyException)
+            catch (Exception MyException)
             {
                 log.addText("Dimensiune necurespunzatoare! \n");
                 return false;
@@ -309,5 +283,82 @@ namespace MonitoringApp
             return result;
         }
 
+        private void Button1_Click(object sender, EventArgs e)                  //butonul Update
+        {
+            if (CheckTextbox() == true)
+                if (CheckBoxes() < 2)
+                {
+                    if (checkBox2.Checked)
+                        SendCommand((byte)Command.PumpOneOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                    if (checkBox3.Checked)
+                        SendCommand((byte)Command.PumpTwoOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                    if (CheckBoxes() == 0)
+                        SendCommand((byte)0, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                }
+        }
+
+        private void StopProcess_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (processStarted == true)
+                {
+                    processStarted = false;
+                    SendCommand((byte)Command.Stop, Convert.ToByte(textBox1.Text));
+                }
+                else
+                    throw new Exception("The process hasn't been started!");
+            }
+            catch (Exception ex)
+            {
+                log.addText(ex.ToString() + Environment.NewLine);
+            }
+        }
+
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)        //Show log checkbox
+        {
+            if (checkBox1.CheckState == CheckState.Checked)
+            {
+                if(textBox1.Text.CompareTo(string.Format("test")) == 0)
+                {
+                    log.addText("GRAPHICS TEST MODE \n");
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)1, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)3, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)7, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)15, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)31, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)63, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)127, 0x00 });
+                    System.Threading.Thread.Sleep(3000);
+                    UpdateGraphics(new byte[] { (byte)63, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)31, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)15, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)7, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)3, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)1, 0x00 });
+                    System.Threading.Thread.Sleep(1000);
+                    UpdateGraphics(new byte[] { (byte)0, 0x00 });
+                    MessageBox.Show("THAT WAS AMAZING. \n     View log.");
+
+                }
+                else
+                    log.Show();
+            }
+            else
+                if (checkBox1.CheckState == CheckState.Unchecked)
+                log.Hide();
+        }
     }
 }

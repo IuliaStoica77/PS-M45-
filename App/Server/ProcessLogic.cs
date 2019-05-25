@@ -18,6 +18,8 @@ namespace TCP_PLC
         private readonly Timer threeSecRule;
         private bool[] functioningPumps;
 
+        public Simulator.Simulator Process => process;
+
         public ProcessLogic(Simulator.Simulator process)
         {
             this.process = process;
@@ -46,9 +48,24 @@ namespace TCP_PLC
             }
         }
 
+        private bool Pump_Function(ProcessState pump)
+        {
+            switch (pump)
+            {
+                case ProcessState.Pump_1:
+                    if (functioningPumps[0] == true)
+                        return true;
+                    break;
+                case ProcessState.Pump_2:
+                    if (functioningPumps[1] == true)
+                        return true;
+                    break;
+            }
+            return false;
+        }
+
         public void Run()
         {
-
             while (true)
             {
                 stateArray = new BitArray(new byte[] { process.Get_State(), 0x00 });
@@ -82,22 +99,6 @@ namespace TCP_PLC
                     previousState = stateArray;
                 }
             }
-        }
-
-        private bool Pump_Function(ProcessState pump)
-        {
-            switch(pump)
-            {
-                case ProcessState.Pump_1:
-                    if (functioningPumps[0] == true)
-                        return true;
-                    break;
-                case ProcessState.Pump_2:
-                    if (functioningPumps[1] == true)
-                        return true;
-                    break;
-            }
-            return false;
         }
 
         internal void Filling_Speed(byte fillingSpeed)

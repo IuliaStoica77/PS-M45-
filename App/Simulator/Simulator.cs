@@ -35,7 +35,7 @@ namespace Simulator
     public class Simulator
     {
         private int fillSpeed;
-        private readonly static int pumpSpeed = 100;
+        private readonly static int pumpSpeed = 75;
         private byte state;
         private int level;
         private int pastLevel;
@@ -114,7 +114,7 @@ namespace Simulator
                     state = intermediateState[0];           // se salveaza starea noua a procesului
                     pastLevel = Level;          // se salveaza valoarea curenta a nivelului apei pentru urmatoarea iteratie
 
-                    System.Threading.Thread.Sleep(250);
+                    System.Threading.Thread.Sleep(500);
                 }
                 else
                     System.Threading.Thread.Sleep(10000);

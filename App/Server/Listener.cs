@@ -64,7 +64,6 @@ namespace TCP_PLC
             }
             finally
             {
-                //se opreste serverul.
                 tcpListener.Stop();
             }
 
