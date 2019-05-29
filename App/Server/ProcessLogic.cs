@@ -103,10 +103,12 @@ namespace TCP_PLC
                     }
 
                     previousState = state;              //se reactualizeaza starea anterioara
+                    System.Threading.Thread.Sleep(250);
                 }
                 else
                 {
                     state = new BitArray(new byte[] { 0x80, 0x00 });                //sistemul este oprit
+                    System.Threading.Thread.Sleep(250);
                 }
             }
         }
