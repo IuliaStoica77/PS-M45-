@@ -13,7 +13,7 @@ namespace TCP_PLC
         public Sender(Simulator.Simulator Process)
         {
             this.process = Process;
-            this.tcpClient = new TcpClient("127.0.0.1", 30000);            // initializare client TCP
+            this.tcpClient = new TcpClient("127.0.0.1", 33000);            // initializare client TCP
             this.networkStream = tcpClient.GetStream();
         }
 

@@ -22,9 +22,9 @@ namespace TCP_PLC
         public Listener(ProcessLogic logic)
         {
             this.logic = logic;
-            this.port = 2000;
+            this.port = 33001;
             this.IPAddress = IPAddress.Parse("127.0.0.1");
-            this.tcpListener = new TcpListener(IPAddress, port);
+            this.tcpListener = new TcpListener(IPAddress, port);                    // initializare client TCP
             this.bytes = new byte[2];
         }
 
@@ -32,7 +32,6 @@ namespace TCP_PLC
         {
             try
             {
-
                 tcpListener.Start();
 
                 while (true)
@@ -47,13 +46,18 @@ namespace TCP_PLC
 
                     int i;
 
-                    while ((i = networkStream.Read(bytes, 0, bytes.Length)) != 0)
+                    while (true)
                     {
-                        if (bytes[0] != 0)
-                            logic.Process_Request((Simulator.Command)bytes[0]);
+                        i = networkStream.Read(bytes, 0, bytes.Length);
 
-                        logic.Filling_Speed(bytes[1]);
-                        Console.WriteLine(string.Format("Received: {0}, {1}", bytes[0].ToString(), bytes[1].ToString()));
+                        if (i != 0)
+                        {
+                            if (bytes[0] != 0)              //daca comanda nu e nula se trimite catre procesare
+                                logic.Process_Request((Simulator.Command)bytes[0]);
+
+                            logic.Filling_Speed(bytes[1]);                  //se actualizeaza debitul de umplere
+                            Console.WriteLine(string.Format("Received: {0}, {1}", bytes[0].ToString(), bytes[1].ToString()));
+                        }
                     }
                     tcpClient.Close();
                 }

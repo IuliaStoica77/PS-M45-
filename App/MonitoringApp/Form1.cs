@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Drawing;
@@ -33,97 +33,113 @@ namespace MonitoringApp
         private TcpClient client;
         private readonly Log log;
         private bool processStarted;
-        private readonly Int32 port = 30000;
+        private readonly Int32 portListen = 33000;
+        private readonly Int32 portSend = 33001;
 
         public Form1()
         {
-            log = new Log();
-            StartListening();
             InitializeComponent();
+
+            log = new Log();                //se instantiaza un nou formular (LOG)
+
+            log.addText("Start Listening" + Environment.NewLine);
+
+            bck = new BackgroundWorker
+            {
+                WorkerReportsProgress = true
+            };
+            bck.ProgressChanged += Update;
+            bck.DoWork += Listen;
+
+            bck.RunWorkerAsync();               //se porneste threadul de listen de la server
+
+            label12.Text = String.Format("{0} l/s", Int32.Parse(textBox1.Text)*2);                  //se actualizeaza debitul de umplere
         }
 
-        private void Bck_DoWork(object sender, DoWorkEventArgs e)
+
+        private void Listen(object sender, DoWorkEventArgs e)                   //functie thread pentru a primi date de la server
         {
-            TcpListener server = null;
+            TcpListener listener = null;
+
             try
             {
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
 
-                server = new TcpListener(localAddr, port);
+                listener = new TcpListener(localAddr, portListen);    
 
-                //Start listening for client requests.
-                server.Start();
+                listener.Start();         //pornire server
 
-                //Buffer for reading data
-                Byte[] bytes = new Byte[2];
+                Byte[] bytes = new Byte[2];             //buffer pentru datele primite
 
-                //Enter the listening loop.
                 while (true)
                 {
-                    bck.ReportProgress(0, "Waiting for a connection... ");
+                    bck.ReportProgress(0, "Waiting for a connection... ");              //raportare progres
 
-                    //Accept TcpClient
-                    TcpClient client = server.AcceptTcpClient();
+                    TcpClient client = listener.AcceptTcpClient();            //acceptare client
 
-                    bck.ReportProgress(0, "Connected!");
-
+                    bck.ReportProgress(0, "Connected!");            //raportare progres
 
                     stream = client.GetStream();
 
                     int i;
 
-                    //Get all data sent by the client.
-                    while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)          //primire date
                     {
-                        //display received data by reporting progress to the background worker
-
-                        //bck.ReportProgress(0, bytes[1].ToString() + ", " + bytes[6].ToString());
-                        bck.ReportProgress(0, bytes[0].ToString());
+                        bck.ReportProgress(0, bytes[0].ToString());         //raportare progres
                     }
 
-                    //Shutdown and end connection
-                    client.Close();
+                    client.Close();             //oprire conexiune
                 }
 
             }
             catch (Exception ex)
             {
-                bck.ReportProgress(0, string.Format("SocketException: {0}", ex.ToString()));
+                bck.ReportProgress(0, string.Format("SocketException: {0}", ex.ToString()));            //raportare progres
             }
         }
 
-        private void Bck_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void Update_Details(byte state)                 //functie pentru a actualiza detaliile debitelor in relatie cu starea primita de la server a procesului
         {
-            string data = (string)e.UserState;
-            int state;
+            byte maskResultPumps = (byte)(state & 7);
+            byte maskResultValve = (byte)(state & 8);
+
+            if (maskResultValve == 0)               //daca valva nu e pornita
+                label12.Text = "0 l/s";
+
+            if(maskResultPumps == 1 | maskResultPumps == 2 | maskResultPumps == 4)              //daca 1 pompe pornite
+                label16.Text = "150 l/s";
+
+            if (maskResultPumps == 3 | maskResultPumps == 5 | maskResultPumps == 6)             //daca 2 pompe pornite
+                label16.Text = "300 l/s";
+
+            if (maskResultPumps == 7)               //daca 3 pompe pornite
+                label16.Text = "450 l/s";
+
+            if (maskResultPumps == 0)               //daca 0 pompe pornite
+                label16.Text = "0 l/s";
+        }
+
+        private void Update(object sender, ProgressChangedEventArgs e)              //functie pentru a procesa datele primite de la bck pentru listen
+        {
+            byte state;
+
             try
             {
-                state = Int32.Parse(data);
+                state = Convert.ToByte(e.UserState.ToString());             //daca se reuseste conversia atunci se actualizeaza grafica si detaliile debitelor
+
+                Update_Graphics(state);
+                Update_Details(state);
+
+
+                log.addText(string.Format("Received: {0}", state) + Environment.NewLine);
             }
-            catch (Exception ex)
+            catch(Exception)
             {
-                state = 0;
+                log.addText(string.Format("{0}", e.UserState.ToString()) + Environment.NewLine);                //daca nu se reuseste conversia, atunci e string si se afiseaza in log
             }
-
-            byte[] bytestate = BitConverter.GetBytes(state);
-
-            UpdateGraphics(bytestate);
-            log.addText(string.Format("Received: {0}", data) + Environment.NewLine);
         }
 
-        private void StartListening()
-        {
-            log.addText("Start Listening" + Environment.NewLine);
-            bck = new BackgroundWorker
-            {
-                WorkerReportsProgress = true
-            };
-            bck.ProgressChanged += Bck_ProgressChanged;
-            bck.DoWork += Bck_DoWork;
-            bck.RunWorkerAsync();
-        }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void Form1_Paint(object sender, PaintEventArgs e)                   //initializare detalii grafice
         {
             Graphics graphicsObj;
 
@@ -150,11 +166,11 @@ namespace MonitoringApp
             graphicsObj.DrawLine(linePen, new Point(470, 270), new Point(470, 290));
         }
 
-        private void UpdateGraphics(byte[] bytestate)
+        private void Update_Graphics(byte bytestate)                //functie pentru actualizarea detaliilor grafice in relatie cu starea actuala a procesului
         {
             Graphics graphicsObj;
 
-            BitArray array = new BitArray(bytestate);
+            BitArray array = new BitArray(new byte[] { bytestate, 0x00 });           //starea procesului
             graphicsObj = this.CreateGraphics();
 
             for (int i = 0; i < 8; i++)
@@ -227,23 +243,22 @@ namespace MonitoringApp
             }
         }
 
-        private void SendCommand(byte command, byte fillingSpeed)
+        private void SendCommand(byte command, byte fillingSpeed)               //functie pentru a trimite comenzi catre server/proces
         {
-            //change IP address to the machine where you want to send the message to
             if (client == null)
-            {
-                client = new TcpClient("127.0.0.1", 2000);
-            }
+                client = new TcpClient("127.0.0.1", portSend);
 
             NetworkStream nwStream = client.GetStream();
             byte[] bytesToSend = new byte[2];
             bytesToSend[0] = (byte)command;
             bytesToSend[1] = (byte)fillingSpeed;
+            label12.Text = String.Format("{0} l/s", fillingSpeed * (int)2);
 
-            nwStream.Write(bytesToSend, 0, bytesToSend.Length);
+            log.addText(string.Format("Sending : {0}, {1} " + Environment.NewLine, bytesToSend[0], bytesToSend[1]));
+            nwStream.Write(bytesToSend, 0, bytesToSend.Length);         //trimit catre server
         }
 
-        private void StartProcess_Click(object sender, EventArgs e)
+        private void StartProcess_Click(object sender, EventArgs e)             //functie pentru pornirea procesului
         {
             try
             {
@@ -256,7 +271,7 @@ namespace MonitoringApp
             }
         }
 
-        private bool CheckTextbox()
+        private bool Check_Textbox()                //functie pentru verificarea textului din textbox1
         {
             try
             {
@@ -270,48 +285,36 @@ namespace MonitoringApp
             return true;
         }
 
-        private int CheckBoxes()
-        {
-            int result = 0;
-
-            if (checkBox2.Checked == true)
-                result += 1;
-
-            if (checkBox3.Checked == true)
-                result += 1;
-
-            return result;
-        }
-
         private void Button1_Click(object sender, EventArgs e)                  //butonul Update
         {
-            if (CheckTextbox() == true)
-                if (CheckBoxes() < 2)
-                {
-                    if (checkBox2.Checked)
-                        SendCommand((byte)Command.PumpOneOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
-                    if (checkBox3.Checked)
-                        SendCommand((byte)Command.PumpTwoOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
-                    if (CheckBoxes() == 0)
-                        SendCommand((byte)0, Convert.ToByte(Int32.Parse(textBox1.Text)));
-                }
+            if (Check_Textbox() == true)
+            {
+                if (checkBox2.Checked & !checkBox3.Checked)
+                    SendCommand((byte)Command.PumpOneOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                if (checkBox3.Checked & !checkBox2.Checked)
+                    SendCommand((byte)Command.PumpTwoOff, Convert.ToByte(Int32.Parse(textBox1.Text)));
+                if (!checkBox3.Checked & !checkBox2.Checked)
+                    SendCommand((byte)0, Convert.ToByte(Int32.Parse(textBox1.Text)));
+            }
         }
 
-        private void StopProcess_Click(object sender, EventArgs e)
+        private void StopProcess_Click(object sender, EventArgs e)              //functie pentru oprirea procesului
         {
             try
             {
+
                 if (processStarted == true)
                 {
                     processStarted = false;
+
                     SendCommand((byte)Command.Stop, Convert.ToByte(textBox1.Text));
                 }
                 else
-                    throw new Exception("The process hasn't been started!");
+                    throw new Exception("Process has not been started yet!");
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                log.addText(ex.ToString() + Environment.NewLine);
+                log.addText("Process has not been started yet! \n");
             }
         }
 
@@ -323,33 +326,47 @@ namespace MonitoringApp
                 {
                     log.addText("GRAPHICS TEST MODE \n");
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)1, 0x00 });
+
+                    Update_Graphics((byte)1);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)3, 0x00 });
+
+                    Update_Graphics((byte)3);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)7, 0x00 });
+
+                    Update_Graphics((byte)7);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)15, 0x00 });
+
+                    Update_Graphics((byte)15);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)31, 0x00 });
+
+                    Update_Graphics((byte)31);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)63, 0x00 });
+
+                    Update_Graphics((byte)63);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)127, 0x00 });
+
+                    Update_Graphics((byte)127);
                     System.Threading.Thread.Sleep(3000);
-                    UpdateGraphics(new byte[] { (byte)63, 0x00 });
+
+                    Update_Graphics((byte)63);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)31, 0x00 });
+
+                    Update_Graphics((byte)31);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)15, 0x00 });
+
+                    Update_Graphics((byte)15);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)7, 0x00 });
+
+                    Update_Graphics((byte)7);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)3, 0x00 });
+
+                    Update_Graphics((byte)3);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)1, 0x00 });
+
+                    Update_Graphics((byte)1);
                     System.Threading.Thread.Sleep(1000);
-                    UpdateGraphics(new byte[] { (byte)0, 0x00 });
+
+                    Update_Graphics((byte)0);
                     MessageBox.Show("THAT WAS AMAZING. \n     View log.");
 
                 }

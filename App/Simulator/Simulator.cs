@@ -41,33 +41,43 @@ namespace Simulator
         private int pastLevel;
         private readonly int capacity = 10000;
         private BitArray stateArray;
-        private byte[] intermediateState;
 
         public Simulator()
         {
             this.FillSpeed = 0;
             this.pastLevel = 0;
-            this.state = new byte();
+            this.state = (byte)0;
         }
 
         public int FillSpeed { get => fillSpeed; set => fillSpeed = value; }
+
         public int Level { get => level; set {
                 if (value > 0)
                     level = value;
-                if (value < 10000)
+                if (value < capacity)
                     level = value;
                 if (value < 0)
                     level = 0;
-                if (value > 10000)
-                    level = 10000;
+                if (value > capacity)
+                    level = capacity;
             } }
+
+        private byte ConvertToByte(BitArray bits)
+        {
+            byte[] bytes = new byte[2];
+            bits.CopyTo(bytes, 0);
+            return bytes[0];
+        }
 
         public void Simulate()
         {
             while (true)
             {
+                bool statebool = Convert.ToBoolean(state); 
+               
                 stateArray = new BitArray(new byte[] { state, 0x00 });
-                if (stateArray[7] == false)
+
+                if (stateArray[7] == false)     //daca sistemul e pornit
                 {
                     if (stateArray[3] == true)    //daca valva e deschisa
                         Level += FillSpeed;
@@ -105,19 +115,20 @@ namespace Simulator
 
                     if (percentage < 0.15)              // daca procentaj mai mic ca niv 1
                         if (pastPercentage >= 0.15)             // daca inainte a fost mai mare ca niv 1 il dezactivam
+                        {
                             stateArray[4] = false;
+                            stateArray[5] = false;
+                            stateArray[6] = false;
+                        }
 
-                    intermediateState = new byte[] { 0x00, 0x00 };
+                    state = ConvertToByte(stateArray);        // se salveaza starea noua a procesului
 
-                    stateArray.CopyTo(intermediateState, 0);
-
-                    state = intermediateState[0];           // se salveaza starea noua a procesului
                     pastLevel = Level;          // se salveaza valoarea curenta a nivelului apei pentru urmatoarea iteratie
 
                     System.Threading.Thread.Sleep(500);
                 }
                 else
-                    System.Threading.Thread.Sleep(10000);
+                    System.Threading.Thread.Sleep(500);
             }
         }
 

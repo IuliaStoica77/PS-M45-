@@ -32,28 +32,28 @@ namespace TCP_PLC
             logic = new ProcessLogic(process);
 
             Thread processThread = new Thread(process.Simulate);
-            processThread.Start();
+            processThread.Start();                  //pornire thread proces
 
             Thread logicThread = new Thread(logic.Run);
-            logicThread.Start();
+            logicThread.Start();                    //pornire thread logica
 
             Thread senderThread = new Thread(Send);
-            senderThread.Start();
+            senderThread.Start();                   //pornire thread send
 
             Thread listenThread = new Thread(Listen);
-            listenThread.Start();
+            listenThread.Start();                   //pornire thread listen
         }
 
         private static void Send()
         {
             Sender sender = new Sender(process);
-            sender.Send();
+            sender.Send();                  //pornire sender
         }
 
         private static void Listen()
         {
             Listener listener = new Listener(logic);
-            listener.Listen();
+            listener.Listen();              //pornire listener
         }
     }
 }

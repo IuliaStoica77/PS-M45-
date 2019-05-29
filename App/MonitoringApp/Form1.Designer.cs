@@ -32,6 +32,7 @@
             this.StopProcess = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -46,8 +47,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // StartProcess
@@ -73,17 +82,18 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(139, 592);
+            this.checkBox1.Location = new System.Drawing.Point(87, 592);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(139, 29);
+            this.checkBox1.Size = new System.Drawing.Size(276, 29);
             this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "Show Log";
+            this.checkBox1.Text = "Afiseaza istoric comenzi";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.checkBox3);
             this.panel1.Controls.Add(this.checkBox2);
@@ -94,13 +104,22 @@
             this.panel1.Size = new System.Drawing.Size(382, 294);
             this.panel1.TabIndex = 6;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(265, 40);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(84, 25);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "[0; 255]";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(113, 228);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(153, 39);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Update";
+            this.button1.Text = "Actualizeaza";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
@@ -109,9 +128,9 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(21, 168);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(203, 29);
+            this.checkBox3.Size = new System.Drawing.Size(188, 29);
             this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = "Damage Pump 2";
+            this.checkBox3.Text = "Strica pompa 2";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // checkBox2
@@ -119,27 +138,28 @@
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(21, 104);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(203, 29);
+            this.checkBox2.Size = new System.Drawing.Size(188, 29);
             this.checkBox2.TabIndex = 2;
-            this.checkBox2.Text = "Damage Pump 1";
+            this.checkBox2.Text = "Strica pompa 1";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(155, 37);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(181, 31);
+            this.textBox1.Size = new System.Drawing.Size(71, 31);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "75";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 40);
+            this.label1.Location = new System.Drawing.Point(16, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 25);
+            this.label1.Size = new System.Drawing.Size(108, 50);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Fill Speed";
+            this.label1.Text = "Viteza de \n umplere";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel2
             // 
@@ -225,11 +245,82 @@
             this.label9.TabIndex = 15;
             this.label9.Text = "M45";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Location = new System.Drawing.Point(1031, 160);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(276, 276);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Informatii generale";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(20, 205);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(107, 50);
+            this.label15.TabIndex = 4;
+            this.label15.Text = "Debit \n evacuare";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(158, 147);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(83, 25);
+            this.label13.TabIndex = 3;
+            this.label13.Text = "10000 l";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(158, 68);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(0, 25);
+            this.label12.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(20, 137);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(121, 50);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Capacitate \n totala";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 57);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(98, 50);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Debit de \numplere";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(158, 215);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(76, 25);
+            this.label16.TabIndex = 5;
+            this.label16.Text = "150 l/s";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 714);
+            this.ClientSize = new System.Drawing.Size(1322, 714);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -246,6 +337,8 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,6 +364,14 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }
 
